@@ -15,6 +15,12 @@ RSpec.describe 'search attempt', :type => :request do
   end
 
   describe 'POST #search' do
+    it 'should get no results when the input box is cleared' do
+      @expected_results = [].to_json
+      post '/search', format: :json, data: { key: nil }
+      expect(response.body).to eq(@expected_results)
+    end
+    
     it 'should return up to 10 matching entries for a search term' do
       @expected_results  = ['Ab',
                             'aba',

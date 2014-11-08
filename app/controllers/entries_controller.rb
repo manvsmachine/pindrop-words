@@ -3,10 +3,19 @@ class EntriesController < ApplicationController
     end
 
     def get_results 
-      key = params[:data][:key]
-      results = Entry.where('word ILIKE ?', "#{key}%").order('LOWER(word)').limit(10).pluck(:word)
-      respond_to do |format|
-        format.json { render json: results and return }
+      if params[:data]
+        key = params[:data][:key]
+        if key.nil?
+          results = []
+        else
+          results = Entry.where('word ILIKE ?', "#{key}%").order('LOWER(word)').limit(10).pluck(:word)
+        end
+
+        respond_to do |format|
+          format.json { render json: results and return }
+        end
+      else
+        render nothing: true, status: 400 and return
       end
     end
 end
