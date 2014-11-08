@@ -13,6 +13,10 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'unicorn'
 
 group :development, :test do
-    gem 'rspec-rails'
+  gem 'rspec-rails'
 end 
+
+group :production do
+  gem 'asset_sync'
+end
 
