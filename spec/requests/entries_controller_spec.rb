@@ -27,7 +27,7 @@ RSpec.describe 'search attempt', :type => :request do
                             'abacinate',
                             'abacination'].to_json
         
-      post '/search', format: :json, data: { key: 'ab' }
+      get '/search', format: :json, data: { key: 'ab' }
       expect(response.body).to eq(@expected_results)
     end
   end
