@@ -1,5 +1,8 @@
 class EntriesController < ApplicationController
     def search
+    end
+
+    def get_results 
       key = params[:data][:key]
       results = Entry.where('word ILIKE ?', "#{key}%").limit(10).pluck(:word)
       respond_to do |format|
