@@ -4,7 +4,7 @@ class EntriesController < ApplicationController
 
     def get_results 
       key = params[:data][:key]
-      results = Entry.order(:word).where('word ILIKE ?', "#{key}%").limit(10).pluck(:word)
+      results = Entry.where('word ILIKE ?', "#{key}%").order('LOWER(word)').limit(10).pluck(:word)
       respond_to do |format|
         format.json { render json: results and return }
       end

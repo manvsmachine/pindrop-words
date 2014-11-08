@@ -4,7 +4,7 @@ RSpec.describe 'search attempt', :type => :request do
   before(:all) do
     Entry.delete_all
     File.open('/usr/share/dict/words', 'r') do |file|
-      file.readlines[0...200].map { |word| word.strip }.uniq.each do |line|
+      file.readlines[0...200].map { |word| word.strip }.uniq.reverse.each do |line|
         Entry.create!(word: line)
       end
     end
@@ -27,7 +27,7 @@ RSpec.describe 'search attempt', :type => :request do
                             'abacinate',
                             'abacination'].to_json
         
-      get '/search', format: :json, data: { key: 'ab' }
+      post '/search', format: :json, data: { key: 'ab' }
       expect(response.body).to eq(@expected_results)
     end
   end
